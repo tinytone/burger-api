@@ -1,6 +1,10 @@
 # Burger-api
 
-This is a repository containing a burger-api hosted using node
+This is a repository containing a burger-api hosted using an npm package called [json-server](https://github.com/typicode/json-server).
+
+The contents our of repo were then pushed to Heroku and the Burger API put live. This API can be viewed at the following URL: https://tinytones-burger-api.herokuapp.com/
+
+## Credit
 
 This inspiration for this project is from Ania Kobow's youtube video:
 
@@ -11,15 +15,28 @@ Her github repo for the video is [here](https://github.com/kubowania/burger-api)
 Ania then deployed her Burger API to Heroku, so the live version of her API can be found here: 
 https://my-burger-api.herokuapp.com/burgers
 
+# Files
+
+The following files are in the repository:
+
+| File name| Description |
+|----------|-------------|
+| [.gitignore](https://github.com/tinytone/burger-api/blob/master/.gitignore) | Lists the files and folders to ignore when adding/committing via git. We want to ignore the ```node_modules``` folder. |
+| [db.json](https://github.com/tinytone/burger-api/blob/master/db.json) | This contains our burger data in json format. |
+| [package.json](https://github.com/tinytone/burger-api/blob/master/package.json) | Lists our dependencies as well as start shortcut command. |
+| [package-lock.json](https://github.com/tinytone/burger-api/blob/master/package-lock.json) | Locks our npm packages at a specific version for other developers using this source code. |
+| [server.js](https://github.com/tinytone/burger-api/blob/master/server.js) | A start script, hotkeyed to "npm start" which enables us to start the json-server package pointing it at our db.json file. This essentially creates a host which listens on a localhost port of 3000, allowing us to interact with our burger data using REST and the GET, POST, PUT, DELETE verbs. |
+| README.md | Documentation about this repository |
+
 # Steps in Video
 
 ## Create a new repo on github
 
 - Click the new button on your github repo: https://github.com/new
-- Enter a Repository name e.g. **burger-api**
-- Make it public
-- Add a README.MD file
-- Add a .gitignore file selecting the **node** from the dropdown
+- Enter a Repository name e.g. **burger-api**.
+- Make it public.
+- Add a README.MD file.
+- Add a .gitignore file selecting the **node** option from the dropdown.
 
 ## Cloning the Repo
 
@@ -332,6 +349,142 @@ Register and create a new account with Heroku and then sign in.
 You should be taken to your dashboard once logged in:
 
 https://dashboard.heroku.com/apps
+
+## Installing Heroku Locally
+
+Ania uses the following command to install Heroku on her MAC:
+
+```
+brew tap heroku/brew && brew install heroku
+```
+
+This won't work on windows.
+
+I'll be using npm:
+
+```
+npm install -g heroku
+```
+
+Verify the version of heroku installed:
+
+```powershell
+PS C:\SourceCode\GitHub\burger-api> heroku --version
+heroku/7.59.0 win32-x64 node-v14.17.5
+```
+
+## Create a heroku project
+
+Login to heroku via the CLI:
+
+```powershell
+PS C:\SourceCode\GitHub\burger-api> heroku login
+
+heroku: Press any key to open up the browser to login or q to exit:
+Opening browser to https://cli-auth.heroku.com/auth/cli/browser/{some-guid}}?requestor={some-requestor-data}
+Logging in... done
+Logged in as {my-email-address}
+```
+
+Now create a project within heroku using the CLI as follows:
+
+```
+PS C:\SourceCode\GitHub\burger-api> heroku create tinytones-burger-api
+
+Creating ⬢ tinytones-burger-api... done
+https://tinytones-burger-api.herokuapp.com/ | https://git.heroku.com/tinytones-burger-api.git
+PS C:\SourceCode\GitHub\burger-api>
+```
+
+## Deploying to Heroku
+
+Push our code to Heroku as follows:
+
+```powershell
+PS C:\SourceCode\GitHub\burger-api> git push heroku master
+
+Enumerating objects: 14, done.
+Counting objects: 100% (14/14), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (14/14), done.
+Writing objects: 100% (14/14), 26.40 KiB | 5.28 MiB/s, done.
+Total 14 (delta 1), reused 4 (delta 0), pack-reused 0
+remote: Compressing source files... done.
+remote: Building source:
+remote:
+remote: -----> Building on the Heroku-20 stack
+remote: -----> Determining which buildpack to use for this app
+remote: -----> Node.js app detected
+remote:
+remote: -----> Creating runtime environment
+remote:
+remote:        NPM_CONFIG_LOGLEVEL=error
+remote:        NODE_VERBOSE=false
+remote:        NODE_ENV=production
+remote:        NODE_MODULES_CACHE=true
+remote:
+remote: -----> Installing binaries
+remote:        engines.node (package.json):  unspecified
+remote:        engines.npm (package.json):   unspecified (use default)
+remote:
+remote:        Resolving node version 14.x...
+remote:        Downloading and installing node 14.18.1...
+remote:        Using default npm version: 6.14.15
+remote:
+remote: -----> Installing dependencies
+remote:        Installing node modules
+remote:        added 173 packages in 3.075s
+remote:
+remote: -----> Build
+remote:
+remote: -----> Caching build
+remote:        - node_modules
+remote:
+remote: -----> Pruning devDependencies
+remote:        audited 173 packages in 1.671s
+remote:
+remote:        13 packages are looking for funding
+remote:          run `npm fund` for details
+remote:
+remote:        found 0 vulnerabilities
+remote:
+remote:
+remote: -----> Build succeeded!
+remote: -----> Discovering process types
+remote:        Procfile declares types     -> (none)
+remote:        Default types for buildpack -> web
+remote:
+remote: -----> Compressing...
+remote:        Done: 34.2M
+remote: -----> Launching...
+remote:        Released v3
+remote:        https://tinytones-burger-api.herokuapp.com/ deployed to Heroku
+remote:
+remote: Verifying deploy... done.
+To https://git.heroku.com/tinytones-burger-api.git
+ * [new branch]      master -> master
+
+PS C:\SourceCode\GitHub\burger-api>
+```
+
+## Testing our newly deployed API
+
+```
+heroku open
+```
+
+This opens up a browser at the following URL: https://tinytones-burger-api.herokuapp.com/
+
+We can now browse to and view our API at various URL's:
+- https://tinytones-burger-api.herokuapp.com/burgers
+- https://tinytones-burger-api.herokuapp.com/burgers/2
+- https://tinytones-burger-api.herokuapp.com/burgers/4
+- etc
+
+Our [Heroku dashboard](https://dashboard.heroku.com/apps) also shows 1 newly deployed application:
+
+https://dashboard.heroku.com/apps/tinytones-burger-api
+
 
 
 # Ania's Notes:
